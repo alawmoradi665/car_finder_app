@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+
+.search-btn{
+    margin: 10px 300px 
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+    }
+

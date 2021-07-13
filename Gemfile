@@ -42,6 +42,13 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+# custom gems
+gem 'bootstrap', '~> 5.0.1'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'devise'
+gem "aws-sdk-s3", require: false
+
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
