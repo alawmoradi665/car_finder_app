@@ -5,3 +5,23 @@
       </form>
     </div>
 
+<div class="row">
+  <%= @listings.each do |car| %>
+    <div class="col-md-4">
+      <div class="card">
+          <%# check if an image exists for the listing %>
+          <% if car.pictures && car.pictures.first %>
+             <%= image_tag car.pictures.first, class: "card-img-top" %>
+          <% else %>
+          <%# add a place holder image %>
+          <%= image_tag "car.jpg", class: "card-img-top"%>
+        <% end %>
+      </div>
+        <div class="card-body">
+          <p class="card-text"><%= car.title %></p>
+          <p>$<%= car.price %></p>
+          <%= link_to 'Explore', listing_path(car.id), class:"btn btn-primary"%>
+        </div>
+    </div>
+  <% end %>
+</div>
