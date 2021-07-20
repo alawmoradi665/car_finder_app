@@ -12,6 +12,8 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/new
   def new
+    # capture any params being passed
+    @user_type = params[:user_type] if params[:user_type]
     @profile = Profile.new
   end
 
@@ -28,9 +30,14 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
+        # if params passed and it is the buyer, redirect to root path after creating a profile. If seller, direct to new listing
+        if params[:profile][:user_type] == "buyer"
+        format.html { redirect_to root_path, notice: "Profile was successfully created." }
+        else 
         format.html { redirect_to new_listing_path, notice: "Profile was successfully created." }
-        format.json { render :show, status: :created, location: @profile }
-      else
+        end 
+        format.json { render :show, status: :created, location: @profile } 
+      else 
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end

@@ -48,6 +48,7 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'devise'
 gem "aws-sdk-s3", require: false
+gem 'stripe' 
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
