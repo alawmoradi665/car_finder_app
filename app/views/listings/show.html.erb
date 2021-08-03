@@ -10,13 +10,8 @@
 </p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @listing.description %>
-</p>
-
-<p>
   <strong>Price:</strong>
-  <%= @listing.price %>
+  $<%= @listing.price %>
 </p>
 
 <p>
@@ -34,15 +29,17 @@
   <%= @listing.car_type %>
 </p>
 
+
 <p>
-  <strong>Picture:</strong>
-  <%= @listing.picture %>
+  <%# <strong>Buyer:</strong>
+  <%= @listing.buyer_id %>
 </p>
 
 <p>
-  <strong>Buyer:</strong>
-  <%= @listing.buyer_id %>
+  <strong>Description:</strong>
+  <%= @listing.description %>
 </p>
+
 
 <p>
   <strong>Seller:</strong>
@@ -50,9 +47,24 @@
 </p>
 
 <p>
-  <strong>Profile:</strong>
-  <%= @listing.profile_id %>
+  <%# <strong>Profile:</strong>
+  <%= @listing.profile_id %> 
 </p>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+
+
+<%# if the car listed is listed by the current user, show edit button %>
+<% if (current_user && current_user.profile && (current_user.profile.id == @listing.seller.id))%>
+      <%= link_to 'Edit', edit_listing_path(@listing)%> 
+    <% else %>
+<%# if the car has a buyer, provide the sold button, else show a buy button %>
+    <% if @listing.buyer %>
+      <button class="btn-btn-danger">Sold</button>
+    <% else %>
+      <% if current_user && current_user.profile %>
+      <%= link_to 'Buy', payment_path(listing_id: @listing.id), method: :post, class: "btn-btn-primary" %>
+      <% end %>
+    <% end %>
+<% end %>
+
+<%= link_to 'Back', root_path %>

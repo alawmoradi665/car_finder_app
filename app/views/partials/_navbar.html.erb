@@ -1,23 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">CarFinder</a>
+    <a class="navbar-brand" href="/">Car Finder</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">    
-         <li class="nav-item">
-          <%= link_to "Sell My Car", new_listing_path, class: "nav-link active btn btn-success text-white" %>
-         </li>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <% if user_signed_in? %>
-          <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "nav-link" %>
-          <% else %>
-          <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>
-        <% end %>        
+          <%= link_to "Sell My Car", new_listing_path, class: "nav-link active btn btn-success text-white" %>
+        </li>
+        <li class="nav-item">
+        <% if user_signed_in? %>
+          <%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: "nav-link" %>
+        <% else %>
+        <li class="nav-item">
+        <%# after login, redirect to root path %>
+          <%= link_to 'Log In', new_user_session_path, class: "nav-link" %>
+        </li>
+          <%= link_to 'Register to Buy', new_user_registration_path(user_type: "buyer"), class:"nav-link"%>
+        <% end %>
         </li>
       </ul>
-     
     </div>
   </div>
 </nav>

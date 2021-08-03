@@ -1,7 +1,5 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy ]
-  # before_action :authenticate_user!
-
 
   # GET /listings or /listings.json
   def index
@@ -10,6 +8,11 @@ class ListingsController < ApplicationController
 
   # GET /listings/1 or /listings/1.json
   def show
+    if params[:checkout] == "success"
+    # update the buyer - DO NOT UPDATE BUYER UNTIL THE PAYMENT SUCCESSFULLY GONE THROUGH
+    @listing.buyer_id = current_user.profile.id
+    @listing.save
+    end 
   end
 
   # GET /listings/new
@@ -72,7 +75,7 @@ class ListingsController < ApplicationController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
       @listing = Listing.find(params[:id])
@@ -80,6 +83,6 @@ class ListingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def listing_params
-      params.require(:listing).permit(:title, :description, :price, :fuel_type, :make, :car_type, :buyer_id, :seller_id, :profile_id, :pictures [])
+      params.require(:listing).permit(:title, :description, :price, :fuel_type, :make, :car_type, :buyer_id, :seller_id, :profile_id, pictures: [])
     end
-end
+end 
